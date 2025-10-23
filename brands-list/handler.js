@@ -216,7 +216,7 @@ async function handleHeaderMenu(context) {
       },
       {
         name: "PMR Infos",
-        logo: "/pmr-infos.jpeg",
+        logo: "/pmr_infos.jpeg",
         outlets: [
           {
             name: "PMR Concrete",
