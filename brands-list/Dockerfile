@@ -16,8 +16,10 @@ RUN npm install --production
 COPY --chown=app:app handler.js ./
 COPY --chown=app:app index.js ./
 
+# Create directories for static assets
+RUN mkdir -p ./images ./clients ./assets
+
 # Copy static assets (images, clients, etc.)
-COPY --chown=app:app images/ ./images/
 COPY --chown=app:app clients/ ./clients/
 COPY --chown=app:app assets/ ./assets/
 
