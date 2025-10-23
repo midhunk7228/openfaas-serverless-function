@@ -303,40 +303,148 @@ async function handleBrandsList(event, context) {
     ].sort();
 
     // Build response
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        brands: paginatedBrands,
-        pagination: {
-          total: totalCount,
-          limit: limit,
-          offset: offset,
-          count: paginatedBrands.length,
-          hasMore: offset + limit < totalCount,
-        },
-        filters: {
-          applied: {
-            category: category || null,
-            country: country || null,
-            search: search || null,
-          },
-          available: {
-            categories: categories,
-            countries: countries,
-          },
-        },
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-      examples: {
-        filterByCategory: "/api/brands?category=Technology",
-        filterByCountry: "/api/brands?country=USA",
-        search: "/api/brands?search=sport",
-        pagination: "/api/brands?limit=5&offset=0",
-        combined: "/api/brands?category=Technology&country=USA&limit=3",
-        sort: "/api/brands?sortBy=founded",
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
       },
-    };
-
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
     const result = {
       body: JSON.stringify(response, null, 2),
       "content-type": "application/json",
