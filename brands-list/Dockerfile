@@ -16,6 +16,10 @@ RUN npm install --production
 COPY --chown=app:app handler.js ./
 COPY --chown=app:app index.js ./
 
+# Copy static assets (images, etc.)
+COPY --chown=app:app images/ ./images/
+COPY --chown=app:app assets/ ./assets/
+
 # Switch to app user
 USER app
 

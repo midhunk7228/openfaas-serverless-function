@@ -1,9 +1,69 @@
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 const handler = require("./handler.js");
 
 const port = process.env.PORT || 3000;
 
+// MIME types for common file extensions
+const MIME_TYPES = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".gif": "image/gif",
+  ".svg": "image/svg+xml",
+  ".webp": "image/webp",
+  ".ico": "image/x-icon",
+  ".json": "application/json",
+  ".css": "text/css",
+  ".js": "text/javascript",
+  ".html": "text/html",
+};
+
+// Function to serve static files
+function serveStaticFile(filePath, res) {
+  const ext = path.extname(filePath).toLowerCase();
+  const contentType = MIME_TYPES[ext] || "application/octet-stream";
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.statusCode = 404;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ error: "File not found" }));
+      return;
+    }
+
+    res.statusCode = 200;
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Cache-Control", "public, max-age=31536000"); // Cache for 1 year
+    res.end(data);
+  });
+}
+
 const server = http.createServer(async (req, res) => {
+  // Enable CORS
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle OPTIONS for CORS
+  if (req.method === "OPTIONS") {
+    res.statusCode = 200;
+    res.end();
+    return;
+  }
+
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const pathname = url.pathname;
+
+  // Check if request is for a static file (images, assets)
+  if (pathname.startsWith("/images/") || pathname.startsWith("/assets/")) {
+    const filePath = path.join(__dirname, pathname);
+    serveStaticFile(filePath, res);
+    return;
+  }
+
+  // Handle API requests
   let body = "";
 
   req.on("data", (chunk) => {
@@ -21,7 +81,6 @@ const server = http.createServer(async (req, res) => {
         }
       }
 
-      const url = new URL(req.url, `http://${req.headers.host}`);
       const query = {};
       url.searchParams.forEach((value, key) => {
         query[key] = value;
@@ -32,7 +91,7 @@ const server = http.createServer(async (req, res) => {
         headers: req.headers,
         method: req.method,
         query: query,
-        path: url.pathname,
+        path: pathname,
       };
 
       const context = {
