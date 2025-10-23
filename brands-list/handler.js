@@ -120,6 +120,11 @@ module.exports = async (event, context) => {
       return await handleCountries(context);
     }
 
+    // Route: /api/header-menu
+    if (path === "/header-menu") {
+      return await handleHeaderMenu(context);
+    }
+
     // Default: return available endpoints
     const result = {
       body: JSON.stringify(
@@ -132,6 +137,7 @@ module.exports = async (event, context) => {
             "GET /api/brands/:id": "Get specific brand by ID",
             "GET /api/categories": "Get all available categories",
             "GET /api/countries": "Get all available countries",
+            "GET /api/header-menu": "Get header menu items",
           },
           examples: {
             "All brands": "/api/brands",
@@ -165,6 +171,73 @@ module.exports = async (event, context) => {
     return context.status(500).succeed(result);
   }
 };
+
+// Handle header menu endpoint
+async function handleHeaderMenu(context) {
+  try {
+    const menuItems = [
+      {
+        id: 1,
+        title: "Home",
+        url: "/",
+        icon: "home",
+      },
+      {
+        id: 2,
+        title: "Brands",
+        url: "/brands",
+        icon: "brand",
+      },
+      {
+        id: 3,
+        title: "Categories",
+        url: "/categories",
+        icon: "category",
+      },
+      {
+        id: 4,
+        title: "About",
+        url: "/about",
+        icon: "info",
+      },
+      {
+        id: 5,
+        title: "Contact",
+        url: "/contact",
+        icon: "contact",
+      },
+    ];
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        menuItems: menuItems,
+        count: menuItems.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
 
 // Handle brands list endpoint
 async function handleBrandsList(event, context) {
@@ -286,6 +359,73 @@ async function handleBrandsList(event, context) {
   }
 }
 
+// Handle header menu endpoint
+async function handleHeaderMenu(context) {
+  try {
+    const menuItems = [
+      {
+        id: 1,
+        title: "Home",
+        url: "/",
+        icon: "home",
+      },
+      {
+        id: 2,
+        title: "Brands",
+        url: "/brands",
+        icon: "brand",
+      },
+      {
+        id: 3,
+        title: "Categories",
+        url: "/categories",
+        icon: "category",
+      },
+      {
+        id: 4,
+        title: "About",
+        url: "/about",
+        icon: "info",
+      },
+      {
+        id: 5,
+        title: "Contact",
+        url: "/contact",
+        icon: "contact",
+      },
+    ];
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        menuItems: menuItems,
+        count: menuItems.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
 // Handle single brand by ID
 async function handleSingleBrand(brandId, context) {
   try {
@@ -315,6 +455,73 @@ async function handleSingleBrand(brandId, context) {
       timestamp: new Date().toISOString(),
       data: {
         brand: brand,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
+// Handle header menu endpoint
+async function handleHeaderMenu(context) {
+  try {
+    const menuItems = [
+      {
+        id: 1,
+        title: "Home",
+        url: "/",
+        icon: "home",
+      },
+      {
+        id: 2,
+        title: "Brands",
+        url: "/brands",
+        icon: "brand",
+      },
+      {
+        id: 3,
+        title: "Categories",
+        url: "/categories",
+        icon: "category",
+      },
+      {
+        id: 4,
+        title: "About",
+        url: "/about",
+        icon: "info",
+      },
+      {
+        id: 5,
+        title: "Contact",
+        url: "/contact",
+        icon: "contact",
+      },
+    ];
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        menuItems: menuItems,
+        count: menuItems.length,
       },
     };
 
@@ -378,6 +585,73 @@ async function handleCategories(context) {
   }
 }
 
+// Handle header menu endpoint
+async function handleHeaderMenu(context) {
+  try {
+    const menuItems = [
+      {
+        id: 1,
+        title: "Home",
+        url: "/",
+        icon: "home",
+      },
+      {
+        id: 2,
+        title: "Brands",
+        url: "/brands",
+        icon: "brand",
+      },
+      {
+        id: 3,
+        title: "Categories",
+        url: "/categories",
+        icon: "category",
+      },
+      {
+        id: 4,
+        title: "About",
+        url: "/about",
+        icon: "info",
+      },
+      {
+        id: 5,
+        title: "Contact",
+        url: "/contact",
+        icon: "contact",
+      },
+    ];
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        menuItems: menuItems,
+        count: menuItems.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
 // Handle countries endpoint
 async function handleCountries(context) {
   try {
@@ -391,6 +665,73 @@ async function handleCountries(context) {
       data: {
         countries: countries,
         count: countries.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
+// Handle header menu endpoint
+async function handleHeaderMenu(context) {
+  try {
+    const menuItems = [
+      {
+        id: 1,
+        title: "Home",
+        url: "/",
+        icon: "home",
+      },
+      {
+        id: 2,
+        title: "Brands",
+        url: "/brands",
+        icon: "brand",
+      },
+      {
+        id: 3,
+        title: "Categories",
+        url: "/categories",
+        icon: "category",
+      },
+      {
+        id: 4,
+        title: "About",
+        url: "/about",
+        icon: "info",
+      },
+      {
+        id: 5,
+        title: "Contact",
+        url: "/contact",
+        icon: "contact",
+      },
+    ];
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        menuItems: menuItems,
+        count: menuItems.length,
       },
     };
 
