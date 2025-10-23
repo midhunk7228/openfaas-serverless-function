@@ -208,14 +208,148 @@ async function handleHeaderMenu(context) {
       },
     ];
 
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        menuItems: menuItems,
-        count: menuItems.length,
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
@@ -503,14 +637,148 @@ async function handleHeaderMenu(context) {
       },
     ];
 
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        menuItems: menuItems,
-        count: menuItems.length,
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
@@ -624,14 +892,148 @@ async function handleHeaderMenu(context) {
       },
     ];
 
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        menuItems: menuItems,
-        count: menuItems.length,
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
@@ -729,14 +1131,148 @@ async function handleHeaderMenu(context) {
       },
     ];
 
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        menuItems: menuItems,
-        count: menuItems.length,
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
@@ -834,14 +1370,148 @@ async function handleHeaderMenu(context) {
       },
     ];
 
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        menuItems: menuItems,
-        count: menuItems.length,
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
