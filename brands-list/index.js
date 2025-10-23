@@ -56,14 +56,37 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const pathname = url.pathname;
 
-  // Check if request is for a static file (images, assets)
-  if (pathname.startsWith("/images/") || pathname.startsWith("/assets/")) {
+  // Check if request is for a static file (images, assets, clients)
+  if (
+    pathname.startsWith("/images/") ||
+    pathname.startsWith("/assets/") ||
+    pathname.startsWith("/clients/")
+  ) {
     const filePath = path.join(__dirname, pathname);
     serveStaticFile(filePath, res);
     return;
   }
 
-  // Handle API requests
+  // Handle API requests - only process /api/* routes
+  if (!pathname.startsWith("/api/")) {
+    res.statusCode = 404;
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({
+        error: "Not Found",
+        message: "API endpoints must start with /api/",
+        availableEndpoints: [
+          "/api/brands",
+          "/api/brands?category=Technology",
+          "/api/brands?search=nike",
+        ],
+      })
+    );
+    return;
+  }
+
+  // Remove /api prefix for handler processing
+  const apiPath = pathname.replace("/api", "");
   let body = "";
 
   req.on("data", (chunk) => {
@@ -91,7 +114,7 @@ const server = http.createServer(async (req, res) => {
         headers: req.headers,
         method: req.method,
         query: query,
-        path: pathname,
+        path: apiPath, // Use apiPath instead of pathname
       };
 
       const context = {

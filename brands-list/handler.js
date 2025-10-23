@@ -96,6 +96,79 @@ const BRANDS_DATABASE = [
 
 module.exports = async (event, context) => {
   try {
+    // Handle different API endpoints
+    const path = event.path || "/";
+
+    // Route: /api/brands (or just /api/)
+    if (path === "/" || path === "/brands") {
+      return await handleBrandsList(event, context);
+    }
+
+    // Route: /api/brands/:id
+    if (path.startsWith("/brands/")) {
+      const brandId = path.split("/")[2];
+      return await handleSingleBrand(brandId, context);
+    }
+
+    // Route: /api/categories
+    if (path === "/categories") {
+      return await handleCategories(context);
+    }
+
+    // Route: /api/countries
+    if (path === "/countries") {
+      return await handleCountries(context);
+    }
+
+    // Default: return available endpoints
+    const result = {
+      body: JSON.stringify(
+        {
+          success: true,
+          message: "OpenFaaS Brands API",
+          timestamp: new Date().toISOString(),
+          availableEndpoints: {
+            "GET /api/brands": "Get all brands with filtering",
+            "GET /api/brands/:id": "Get specific brand by ID",
+            "GET /api/categories": "Get all available categories",
+            "GET /api/countries": "Get all available countries",
+          },
+          examples: {
+            "All brands": "/api/brands",
+            "Technology brands": "/api/brands?category=Technology",
+            "USA brands": "/api/brands?country=USA",
+            "Search Nike": "/api/brands?search=nike",
+            "Brand by ID": "/api/brands/1",
+            Categories: "/api/categories",
+            Countries: "/api/countries",
+          },
+        },
+        null,
+        2
+      ),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+};
+
+// Handle brands list endpoint
+async function handleBrandsList(event, context) {
+  try {
     // Get query parameters
     const query = event.query || {};
     const category = query.category;
@@ -157,148 +230,39 @@ module.exports = async (event, context) => {
     ].sort();
 
     // Build response
-    const response = [
-      {
-        name: "All",
-        logo: "/pmr.jpeg",
-        outlets: null,
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        brands: paginatedBrands,
+        pagination: {
+          total: totalCount,
+          limit: limit,
+          offset: offset,
+          count: paginatedBrands.length,
+          hasMore: offset + limit < totalCount,
+        },
+        filters: {
+          applied: {
+            category: category || null,
+            country: country || null,
+            search: search || null,
+          },
+          available: {
+            categories: categories,
+            countries: countries,
+          },
+        },
       },
-      {
-        name: "PMR Infos",
-        logo: "/pmr-infos.jpeg",
-        outlets: [
-          {
-            name: "PMR Concrete",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "PMR Construction",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "PMR Petroleum",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "PMR Granites India Pvt Ltd",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "PMR SHA",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "Brickly global",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-          {
-            name: "PMR Grandays",
-            countries: [
-              {
-                name: "All",
-                flag: "/_all.png",
-                code: "all",
-                currencyCode: "N/A",
-              },
-              {
-                name: "India",
-                flag: "/_in.png",
-                code: "IN",
-                currencyCode: "INR",
-              },
-            ],
-          },
-        ],
+      examples: {
+        filterByCategory: "/api/brands?category=Technology",
+        filterByCountry: "/api/brands?country=USA",
+        search: "/api/brands?search=sport",
+        pagination: "/api/brands?limit=5&offset=0",
+        combined: "/api/brands?category=Technology&country=USA&limit=3",
+        sort: "/api/brands?sortBy=founded",
       },
-      {
-        name: "Pmrcedifice",
-        logo: "/pmr_edifice.png",
-        outlets: [],
-      },
-      {
-        name: "Alkad academy",
-        logo: "/Alkad_academy.png",
-        outlets: [],
-      },
-    ];
+    };
 
     const result = {
       body: JSON.stringify(response, null, 2),
@@ -320,4 +284,134 @@ module.exports = async (event, context) => {
 
     return context.status(500).succeed(result);
   }
-};
+}
+
+// Handle single brand by ID
+async function handleSingleBrand(brandId, context) {
+  try {
+    const id = parseInt(brandId);
+    const brand = BRANDS_DATABASE.find((b) => b.id === id);
+
+    if (!brand) {
+      const result = {
+        body: JSON.stringify(
+          {
+            success: false,
+            error: "Brand not found",
+            message: `No brand found with ID ${brandId}`,
+            timestamp: new Date().toISOString(),
+          },
+          null,
+          2
+        ),
+        "content-type": "application/json",
+      };
+
+      return context.status(404).succeed(result);
+    }
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        brand: brand,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
+// Handle categories endpoint
+async function handleCategories(context) {
+  try {
+    const categories = [
+      ...new Set(BRANDS_DATABASE.map((b) => b.category)),
+    ].sort();
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        categories: categories,
+        count: categories.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
+
+// Handle countries endpoint
+async function handleCountries(context) {
+  try {
+    const countries = [
+      ...new Set(BRANDS_DATABASE.map((b) => b.country)),
+    ].sort();
+
+    const response = {
+      success: true,
+      timestamp: new Date().toISOString(),
+      data: {
+        countries: countries,
+        count: countries.length,
+      },
+    };
+
+    const result = {
+      body: JSON.stringify(response, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(200).succeed(result);
+  } catch (error) {
+    const errorResponse = {
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    const result = {
+      body: JSON.stringify(errorResponse, null, 2),
+      "content-type": "application/json",
+    };
+
+    return context.status(500).succeed(result);
+  }
+}
