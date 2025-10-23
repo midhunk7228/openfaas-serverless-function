@@ -1,0 +1,76 @@
+=====================================
+RENDER.COM CONFIGURATION CHEAT SHEET
+=====================================
+
+When you create the Web Service on Render, fill in these fields:
+
+┌─────────────────────────────────────────────────────┐
+│  BASIC SETTINGS                                     │
+├─────────────────────────────────────────────────────┤
+│  Name:              brands-list-api                 │
+│  Region:            Oregon (US West)                │
+│  Branch:            main                            │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  BUILD SETTINGS (Docker - Recommended)              │
+├─────────────────────────────────────────────────────┤
+│  Environment:       Docker                          │
+│  Root Directory:    brands-list                     │
+│  Dockerfile Path:   ./Dockerfile                    │
+│  Build Command:     [LEAVE EMPTY]                   │
+│  Start Command:     [LEAVE EMPTY]                   │
+└─────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────┐
+│  INSTANCE TYPE                                      │
+├─────────────────────────────────────────────────────┤
+│  Instance Type:     Free                            │
+└─────────────────────────────────────────────────────┘
+
+Then click "Create Web Service" at the bottom!
+
+=====================================
+YOUR DEPLOYMENT STEPS:
+=====================================
+
+□ Step 1: Push code to GitHub
+  Command: git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+  Command: git push -u origin main
+
+□ Step 2: Go to render.com and sign up with GitHub
+
+□ Step 3: Click "New +" → "Web Service"
+
+□ Step 4: Connect your GitHub repository
+
+□ Step 5: Fill in the settings above
+
+□ Step 6: Click "Create Web Service"
+
+□ Step 7: Wait 2-5 minutes for deployment
+
+□ Step 8: Get your URL (e.g., https://brands-list-api.onrender.com)
+
+□ Step 9: Test your API!
+
+=====================================
+QUICK TEST COMMANDS:
+=====================================
+
+# Replace with your actual Render URL:
+export API_URL="https://brands-list-api.onrender.com"
+
+# Test all brands:
+curl $API_URL
+
+# Test with category filter:
+curl "$API_URL?category=Technology"
+
+# Test search:
+curl "$API_URL?search=nike"
+
+=====================================
+DONE! Your API is live! 🎉
+=====================================
+
