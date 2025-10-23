@@ -1,38 +1,34 @@
 FROM node:20-alpine
 
-# Install OpenFaaS watchdog
-ADD https://github.com/openfaas/of-watchdog/releases/download/0.10.11/fwatchdog /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
-
-# Install dependencies
-RUN apk --no-cache add curl ca-certificates
-
 # Create app user
 RUN addgroup -S app && adduser -S -g app app
 
 # Set up working directory
 WORKDIR /home/app
 
-# Copy and install dependencies
+# Copy package files
 COPY --chown=app:app package*.json ./
+
+# Install dependencies
 RUN npm install --production
 
-# Copy function code
-COPY --chown=app:app handler.js ./function/
+# Copy application code
+COPY --chown=app:app handler.js ./
+COPY --chown=app:app index.js ./
 
 # Switch to app user
 USER app
 
-# Configure watchdog
-ENV fprocess="node /home/app/function/handler.js"
-ENV mode="http"
-ENV upstream_url="http://127.0.0.1:3000"
+# Set PORT environment variable
 ENV PORT=8080
 
-# Health check
-HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
-
+# Expose port
 EXPOSE 8080
 
-CMD ["fwatchdog"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:8080', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Start the server
+CMD ["node", "index.js"]
 
