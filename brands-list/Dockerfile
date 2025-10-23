@@ -17,7 +17,7 @@ COPY --chown=app:app handler.js ./
 COPY --chown=app:app index.js ./
 
 # Copy static assets (images, etc.)
-COPY --chown=app:app images/ ./images/
+COPY --chown=app:app clients/3 ./clients/3
 COPY --chown=app:app assets/ ./assets/
 
 # Switch to app user

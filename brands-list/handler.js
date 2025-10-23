@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 // Sample brands database
 const BRANDS_DATABASE = [
@@ -9,7 +9,7 @@ const BRANDS_DATABASE = [
     country: "USA",
     founded: 1964,
     description: "Athletic footwear and apparel",
-    website: "https://www.nike.com"
+    website: "https://www.nike.com",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const BRANDS_DATABASE = [
     country: "Germany",
     founded: 1949,
     description: "Sports equipment and apparel",
-    website: "https://www.adidas.com"
+    website: "https://www.adidas.com",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const BRANDS_DATABASE = [
     country: "USA",
     founded: 1976,
     description: "Consumer electronics and software",
-    website: "https://www.apple.com"
+    website: "https://www.apple.com",
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const BRANDS_DATABASE = [
     country: "South Korea",
     founded: 1938,
     description: "Electronics and technology",
-    website: "https://www.samsung.com"
+    website: "https://www.samsung.com",
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const BRANDS_DATABASE = [
     country: "Japan",
     founded: 1937,
     description: "Automobile manufacturing",
-    website: "https://www.toyota.com"
+    website: "https://www.toyota.com",
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const BRANDS_DATABASE = [
     country: "USA",
     founded: 2003,
     description: "Electric vehicles and clean energy",
-    website: "https://www.tesla.com"
+    website: "https://www.tesla.com",
   },
   {
     id: 7,
@@ -63,7 +63,7 @@ const BRANDS_DATABASE = [
     country: "USA",
     founded: 1892,
     description: "Soft drinks and beverages",
-    website: "https://www.coca-cola.com"
+    website: "https://www.coca-cola.com",
   },
   {
     id: 8,
@@ -72,7 +72,7 @@ const BRANDS_DATABASE = [
     country: "USA",
     founded: 1971,
     description: "Coffee chain and roastery",
-    website: "https://www.starbucks.com"
+    website: "https://www.starbucks.com",
   },
   {
     id: 9,
@@ -81,7 +81,7 @@ const BRANDS_DATABASE = [
     country: "Italy",
     founded: 1921,
     description: "Luxury fashion and leather goods",
-    website: "https://www.gucci.com"
+    website: "https://www.gucci.com",
   },
   {
     id: 10,
@@ -90,8 +90,8 @@ const BRANDS_DATABASE = [
     country: "France",
     founded: 1854,
     description: "Luxury fashion and leather goods",
-    website: "https://www.louisvuitton.com"
-  }
+    website: "https://www.louisvuitton.com",
+  },
 ];
 
 module.exports = async (event, context) => {
@@ -103,113 +103,221 @@ module.exports = async (event, context) => {
     const search = query.search?.toLowerCase();
     const limit = parseInt(query.limit) || 10;
     const offset = parseInt(query.offset) || 0;
-    const sortBy = query.sortBy || 'name'; // name, founded, id
-    
+    const sortBy = query.sortBy || "name"; // name, founded, id
+
     // Filter brands based on query parameters
     let filteredBrands = [...BRANDS_DATABASE];
-    
+
     // Filter by category
     if (category) {
       filteredBrands = filteredBrands.filter(
-        brand => brand.category.toLowerCase() === category.toLowerCase()
+        (brand) => brand.category.toLowerCase() === category.toLowerCase()
       );
     }
-    
+
     // Filter by country
     if (country) {
       filteredBrands = filteredBrands.filter(
-        brand => brand.country.toLowerCase() === country.toLowerCase()
+        (brand) => brand.country.toLowerCase() === country.toLowerCase()
       );
     }
-    
+
     // Search in name or description
     if (search) {
       filteredBrands = filteredBrands.filter(
-        brand => 
+        (brand) =>
           brand.name.toLowerCase().includes(search) ||
           brand.description.toLowerCase().includes(search)
       );
     }
-    
+
     // Sort brands
     filteredBrands.sort((a, b) => {
-      if (sortBy === 'founded') {
+      if (sortBy === "founded") {
         return a.founded - b.founded;
-      } else if (sortBy === 'id') {
+      } else if (sortBy === "id") {
         return a.id - b.id;
       } else {
         return a.name.localeCompare(b.name);
       }
     });
-    
+
     // Get total count before pagination
     const totalCount = filteredBrands.length;
-    
+
     // Apply pagination
     const paginatedBrands = filteredBrands.slice(offset, offset + limit);
-    
+
     // Get unique categories for filtering
-    const categories = [...new Set(BRANDS_DATABASE.map(b => b.category))].sort();
-    const countries = [...new Set(BRANDS_DATABASE.map(b => b.country))].sort();
-    
+    const categories = [
+      ...new Set(BRANDS_DATABASE.map((b) => b.category)),
+    ].sort();
+    const countries = [
+      ...new Set(BRANDS_DATABASE.map((b) => b.country)),
+    ].sort();
+
     // Build response
-    const response = {
-      success: true,
-      timestamp: new Date().toISOString(),
-      data: {
-        brands: paginatedBrands,
-        pagination: {
-          total: totalCount,
-          limit: limit,
-          offset: offset,
-          count: paginatedBrands.length,
-          hasMore: (offset + limit) < totalCount
-        },
-        filters: {
-          applied: {
-            category: category || null,
-            country: country || null,
-            search: search || null
-          },
-          available: {
-            categories: categories,
-            countries: countries
-          }
-        }
+    const response = [
+      {
+        name: "All",
+        logo: "/pmr.jpeg",
+        outlets: null,
       },
-      examples: {
-        filterByCategory: "?category=Technology",
-        filterByCountry: "?country=USA",
-        search: "?search=sport",
-        pagination: "?limit=5&offset=0",
-        combined: "?category=Technology&country=USA&limit=3",
-        sort: "?sortBy=founded"
-      }
-    };
+      {
+        name: "PMR Infos",
+        logo: "/pmr-infos.jpeg",
+        outlets: [
+          {
+            name: "PMR Concrete",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Construction",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Petroleum",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Granites India Pvt Ltd",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR SHA",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "Brickly global",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+          {
+            name: "PMR Grandays",
+            countries: [
+              {
+                name: "All",
+                flag: "/_all.png",
+                code: "all",
+                currencyCode: "N/A",
+              },
+              {
+                name: "India",
+                flag: "/_in.png",
+                code: "IN",
+                currencyCode: "INR",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Pmrcedifice",
+        logo: "/pmr_edifice.png",
+        outlets: [],
+      },
+      {
+        name: "Alkad academy",
+        logo: "/Alkad_academy.png",
+        outlets: [],
+      },
+    ];
 
     const result = {
       body: JSON.stringify(response, null, 2),
-      'content-type': 'application/json'
+      "content-type": "application/json",
     };
 
-    return context
-      .status(200)
-      .succeed(result);
-      
+    return context.status(200).succeed(result);
   } catch (error) {
     const errorResponse = {
       success: false,
       error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     const result = {
       body: JSON.stringify(errorResponse, null, 2),
-      'content-type': 'application/json'
+      "content-type": "application/json",
     };
 
-    return context
-      .status(500)
-      .succeed(result);
+    return context.status(500).succeed(result);
   }
-}
+};
