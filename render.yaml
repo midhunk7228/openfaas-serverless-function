@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: brands-list-api
+    runtime: docker
+    dockerfilePath: ./brands-list/Dockerfile
+    dockerContext: ./brands-list
+    envVars:
+      - key: PORT
+        value: 8080
+    healthCheckPath: /
+

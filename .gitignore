@@ -1,0 +1,17 @@
+node_modules/
+npm-debug.log
+.DS_Store
+*.log
+.env
+.env.local
+build/
+dist/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.lock
+template/
+fly-*.toml
+Dockerfile.railway

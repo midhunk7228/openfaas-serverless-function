@@ -1,0 +1,20 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://127.0.0.1:8080
+functions:
+  hello-world:
+    lang: node20
+    handler: ./hello-world
+    image: hello-world:latest
+
+  get-info:
+    lang: node20
+    handler: ./get-info
+    image: get-info:latest
+
+  brands-list:
+    lang: node20
+    handler: ./brands-list
+    image: brands-list:latest
+
